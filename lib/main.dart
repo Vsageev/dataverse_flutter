@@ -29,14 +29,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       onGenerateRoute: (settings) {
-        //TODO remove 1st return
-        return MaterialPageRoute(builder: (context) {
-          return BlocProvider(
-            create: (context) => MainCubit('Bearer ' ),
-            child: const MainPage(),
-          );
-        });
-
         var accessToken = "";
         try {
           var accessTokenParam = settings.name?.split('&')[0];
