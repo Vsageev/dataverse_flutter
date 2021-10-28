@@ -6,4 +6,8 @@ class AccountsLoaded extends AccountsState {
   AccountsLoaded({
     required this.accounts,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [accounts];
 }

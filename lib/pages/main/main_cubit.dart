@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dataverse_sample/keys.dart';
+import 'package:dataverse_sample/pages/main/states/accounts_system_message.dart';
 import 'package:dataverse_sample/shared/api_models/account_model.dart';
 import 'package:dataverse_sample/shared/api_models/response_model.dart';
 import 'package:dataverse_sample/pages/main/states/accounts_loaded.dart';
@@ -31,9 +32,13 @@ class MainCubit extends Cubit<AccountsState> {
       if (rez.statusCode == 200) {
         var accounts = ResponseModel.fromJson(rez.body).value;
         emit(AccountsLoaded(accounts: accounts));
+      } else {
+        emit(AccountsSystemMessage(
+            message: 'request returned code ' + rez.statusCode.toString()));
       }
     } catch (e) {
       print(e);
+      emit(AccountsSystemMessage(message: e.toString()));
     }
   }
 
@@ -78,11 +83,12 @@ class MainCubit extends Cubit<AccountsState> {
         var accounts = ResponseModel.fromJson(rez.body).value;
         emit(AccountsLoaded(accounts: accounts));
       } else {
-        print("error getting result");
-        emit(AccountsLoaded(accounts: []));
+        emit(AccountsSystemMessage(
+            message: 'request returned code ' + rez.statusCode.toString()));
       }
     } catch (e) {
       print(e);
+      emit(AccountsSystemMessage(message: e.toString()));
     }
   }
 }

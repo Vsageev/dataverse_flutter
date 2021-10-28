@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dataverse_sample/pages/main/account_card_widget.dart';
 import 'package:dataverse_sample/pages/main/account_list_widget.dart';
 import 'package:dataverse_sample/pages/main/main_cubit.dart';
 import 'package:dataverse_sample/pages/main/states/accounts_loaded.dart';
 import 'package:dataverse_sample/pages/main/states/accounts_state.dart';
+import 'package:dataverse_sample/pages/main/states/accounts_system_message.dart';
 import 'package:dataverse_sample/shared/api_models/state_code_enums.dart';
 import 'package:dataverse_sample/shared/colors.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,8 @@ class _MainPageState extends State<MainPage> {
       return Scaffold(
         backgroundColor: backrgound,
         body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width > 720 ? 40 : 0),
           child: Column(
             children: [
               optionsWidget(context, state),
@@ -130,6 +133,9 @@ class _MainPageState extends State<MainPage> {
         );
       }
     }
+    if (state is AccountsSystemMessage) {
+      return Center(child: Text(state.message));
+    }
     return const Center(child: CircularProgressIndicator());
   }
 
@@ -170,10 +176,15 @@ class _MainPageState extends State<MainPage> {
                             });
                           },
                         ),
-                        const Text(
-                          'no filters',
-                          style: TextStyle(
-                            fontSize: 15,
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 100),
+                          child: const AutoSizeText(
+                            'no filters',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
@@ -198,10 +209,15 @@ class _MainPageState extends State<MainPage> {
                             });
                           },
                         ),
-                        const Text(
-                          'active',
-                          style: TextStyle(
-                            fontSize: 15,
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 100),
+                          child: const AutoSizeText(
+                            'active',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
@@ -226,10 +242,15 @@ class _MainPageState extends State<MainPage> {
                             });
                           },
                         ),
-                        const Text(
-                          'inactive',
-                          style: TextStyle(
-                            fontSize: 15,
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 100),
+                          child: const AutoSizeText(
+                            'inactive',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
@@ -244,7 +265,7 @@ class _MainPageState extends State<MainPage> {
           width: 10,
         ),
         Expanded(
-          flex: 3,
+          flex: MediaQuery.of(context).size.width > 720 ? 3 : 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -276,10 +297,15 @@ class _MainPageState extends State<MainPage> {
                             });
                           },
                         ),
-                        const Text(
-                          'no filters',
-                          style: TextStyle(
-                            fontSize: 15,
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 100),
+                          child: const AutoSizeText(
+                            'no filters',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
@@ -305,10 +331,15 @@ class _MainPageState extends State<MainPage> {
                               });
                             },
                           ),
-                          Text(
-                            e,
-                            style: const TextStyle(
-                              fontSize: 15,
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 100),
+                            child: AutoSizeText(
+                              e,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],

@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:dataverse_sample/shared/api_models/state_code_enums.dart';
+import 'package:equatable/equatable.dart';
 
-class AccountModel {
+class AccountModel extends Equatable {
   String name;
   String? accountnumber;
   String? address1_stateorprovince;
@@ -13,6 +14,19 @@ class AccountModel {
     required this.address1_stateorprovince,
     required this.statecode,
   });
+
+  AccountModel copyWith(
+      {String? name,
+      String? accountnumber,
+      String? address1_stateorprovince,
+      StateCode? statecode}) {
+    return AccountModel(
+      name: name ?? this.name,
+      accountnumber: accountnumber??this.accountnumber,
+      address1_stateorprovince: address1_stateorprovince??this.address1_stateorprovince,
+      statecode: statecode??this.statecode,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -36,4 +50,8 @@ class AccountModel {
 
   factory AccountModel.fromJson(String source) =>
       AccountModel.fromMap(json.decode(source));
+
+  @override
+  List<Object?> get props =>
+      [name, accountnumber, address1_stateorprovince, statecode];
 }

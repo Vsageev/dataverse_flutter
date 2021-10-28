@@ -29,16 +29,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       onGenerateRoute: (settings) {
+        //TODO remove 1st return
+        return MaterialPageRoute(builder: (context) {
+          return BlocProvider(
+            create: (context) => MainCubit('Bearer ' ),
+            child: const MainPage(),
+          );
+        });
+
         var accessToken = "";
-        // print(settings.arguments);
         try {
-          // print("name:" + settings.name.toString());
           var accessTokenParam = settings.name?.split('&')[0];
-          // print("str: "+accessTokenParam.toString());
           accessToken = accessTokenParam == null
               ? "null"
               : accessTokenParam.split('=')[1];
-          // print("token: " + accessToken.toString());
         } catch (e) {}
 
         if (settings.name == '/') {
